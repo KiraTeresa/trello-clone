@@ -5,23 +5,26 @@ import { useEffect, useState } from 'react'
 
 export default function Collumn() {
     const [cards, setCards] = useState([])
-    const [cardForm, setCardForm] = useState(false)
+    const [cardForm, setCardForm] = useState(true)
+    const [newData, setNewData] = useState(undefined)
 
     useEffect(() => {
         console.log("rendering")
-    }, [cards, cardForm])
+    }, [cards, newData])
 
-    function addCard() {
+    const addCard = (d) => {
         console.log('Button clicked')
-        setCards([...cards, { title: `card ${cards.length + 1}`, description: "a description" }])
+        setNewData(d)
+        // setCards([...cards, { title: `card ${cards.length + 1}`, description: "a description" }])
     }
 
     function showCardForm() {
         setCardForm(!cardForm)
     }
 
-    console.log("Cards: ", cards)
-    console.log("CardForm: ", cardForm)
+    // console.log("Cards: ", cards)
+    // console.log("CardForm: ", cardForm)
+    console.log("New data: ", newData)
 
     return (
         <div className="collumn">
@@ -29,7 +32,7 @@ export default function Collumn() {
             {cards.map((card, index) => {
                 return <Card key={index} props={card} />
             })}
-            {cardForm ? <CardForm props={setCards} /> : ""}
+            {cardForm ? <CardForm cards={cards} setCards={setCards} /> : ""}
             <button onClick={showCardForm}>Add Card</button>
         </div>
     )
