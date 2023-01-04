@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './app.scss';
 import Collumn from './components/Collumn/Collumn';
 
 function App() {
