@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-export default function CardForm({ cards, setCards }) {
+export default function CardForm({ props }) {
     const [data, setData] = useState({ title: "", description: "" })
-    // console.log("CardForm Props: ", addNewCard)
+    const { cards, setCards, toggleCardForm } = props
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -14,9 +14,8 @@ export default function CardForm({ cards, setCards }) {
         e.preventDefault()
         setCards([...cards, data])
         setData({ title: "", description: "" })
+        toggleCardForm()
     }
-
-    // console.log("Data: ", data)
 
     return (
         <form className="card-form" onSubmit={handleSubmit}>
