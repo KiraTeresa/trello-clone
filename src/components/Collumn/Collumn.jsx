@@ -15,11 +15,16 @@ export default function Collumn() {
         setCardForm(!cardForm)
     }
 
+    function removeCard(title) {
+        const updatedCards = cards.filter((card) => card.title !== title)
+        setCards(updatedCards)
+    }
+
     return (
         <div className="collumn">
             <h2>Column Title</h2>
             {cards.map((card, index) => {
-                return <Card key={index} props={card} />
+                return <Card key={index} props={{ card, removeCard }} />
             })}
             {cardForm ? <CardForm props={{ cards, setCards, toggleCardForm }} /> : ""}
             <button onClick={toggleCardForm}>Add Card</button>
