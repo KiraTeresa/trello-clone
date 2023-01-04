@@ -1,4 +1,7 @@
 .collumn {
     border: red solid 1px;
     max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
