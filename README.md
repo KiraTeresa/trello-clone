@@ -5,7 +5,7 @@ I pre-defined three steps with the functionalities I plan to achieve in each ste
 
 ## Step 1
 
-> Creating a basic layout and functionality with two components:
+Creating a basic layout and functionality with two components:
 
 ### `Column`
 
@@ -20,7 +20,7 @@ I pre-defined three steps with the functionalities I plan to achieve in each ste
 
 ## Step 2
 
-> Add more advanced functionality:
+Add more advanced functionality:
 
 ### `Board`
 
@@ -37,7 +37,7 @@ I pre-defined three steps with the functionalities I plan to achieve in each ste
 
 ## Step 3
 
-> Make it more dynamic:
+Make it more dynamic:
 
 ### `Column`
 
