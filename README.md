@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# Trello Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+With this project I would like to strengthen and expand my React skills.
+I pre-defined three steps with the functionalities I plan to achieve in each step.
 
-## Available Scripts
+## Step 1
 
-In the project directory, you can run:
+>> Creating a basic layout and functionality with two components:
 
-### `npm start`
+### `Column`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+>> Each collumn has a title.
+>> Cards can be added to it.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `Card`
 
-### `npm test`
+>> Each Card has a title and a description.
+>> Cards can be deleted.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Step 2
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+>> Add more advanced functionality:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `Board`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+>> Option to add more columns.
 
-### `npm run eject`
+### `Column`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+>> Columns can be deleted.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `Card`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+>> Drag&Drop function to move card from one column to another
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Step 3
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+>> Make it more dynamic:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `Column`
 
-### Code Splitting
+>> Drag&Drop to change order
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### `Card`
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+>> Drag&Drop to change position within a column
