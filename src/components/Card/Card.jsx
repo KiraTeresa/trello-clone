@@ -1,10 +1,12 @@
 import './card.scss'
 
-export default function Card() {
+export default function Card({ props }) {
+    const { title, description } = props
+
     return (
         <div className="card">
-            <h3>Card Title</h3>
-            <p>Description of thise card...</p>
+            <h3>{title}</h3>
+            <p>{description}</p>
         </div>
     )
 }

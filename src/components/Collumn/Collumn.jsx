@@ -19,9 +19,8 @@ export default function Collumn() {
     return (
         <div className="collumn">
             <h2>Column Title</h2>
-            <Card />
             {cards.map((card, index) => {
-                return <Card key={index} />
+                return <Card key={index} props={card} />
             })}
             <button onClick={addCard}>Add Card</button>
         </div>
