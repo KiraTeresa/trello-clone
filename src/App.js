@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './app.scss';
 import Collumn from './components/Collumn/Collumn';
 

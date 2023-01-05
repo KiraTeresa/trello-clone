@@ -7,9 +7,9 @@ export default function Collumn() {
     const [cards, setCards] = useState([])
     const [cardForm, setCardForm] = useState(false)
 
-    useEffect(() => {
-        console.log("rendering")
-    }, [cards, cardForm])
+    // useEffect(() => {
+    //     console.log("rendering")
+    // }, [cards, cardForm])
 
     function toggleCardForm() {
         setCardForm(!cardForm)
