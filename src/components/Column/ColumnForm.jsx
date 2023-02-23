@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useId } from "react"
 
 export default function ColumnForm({ props }) {
-    const [data, setData] = useState({ title: "" })
+    const colId = useId()
+    const [data, setData] = useState({ id: 'col-' + colId, title: "", cards: [] })
     const { columns, setColumns, toggleColumnForm } = props
 
     function handleChange(e) {

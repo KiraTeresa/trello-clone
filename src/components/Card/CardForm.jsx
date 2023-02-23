@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useId } from 'react'
 
 export default function CardForm({ props }) {
-    const [data, setData] = useState({ title: "", description: "" })
+    const cardId = useId()
+    const [data, setData] = useState({ id: 'card-' + cardId, title: "", description: "" })
     const { cards, setCards, toggleCardForm } = props
 
     function handleChange(e) {
