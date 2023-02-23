@@ -1,17 +1,13 @@
 import './column.scss'
 import Card from '../Card/Card'
 import CardForm from '../Card/CardForm'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Collumn({ props }) {
     const [cards, setCards] = useState([])
     const [cardForm, setCardForm] = useState(false)
     const { col, removeColumn } = props
     const { title } = col
-
-    // useEffect(() => {
-    //     console.log("rendering")
-    // }, [cards, cardForm])
 
     function toggleCardForm() {
         setCardForm(!cardForm)
