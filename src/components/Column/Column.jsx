@@ -7,7 +7,7 @@ export default function Collumn({ props }) {
     const [cards, setCards] = useState([])
     const [cardForm, setCardForm] = useState(false)
     const { col, removeColumn } = props
-    const { title } = col
+    const { id, title } = col
 
     function toggleCardForm() {
         setCardForm(!cardForm)
@@ -21,6 +21,7 @@ export default function Collumn({ props }) {
     return (
         <div className="collumn">
             <h2>{title}</h2>
+            <p>ID: {id}</p>
             <button onClick={() => removeColumn(title)}>remove col</button>
             {cards.map((card, index) => {
                 return <Card key={index} props={{ card, removeCard }} />

@@ -1,8 +1,9 @@
-import { useState, useId } from 'react'
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function CardForm({ props }) {
-    const cardId = useId()
-    const [data, setData] = useState({ id: 'card-' + cardId, title: "", description: "" })
+    const cardId = uuidv4()
+    const [data, setData] = useState({ id: cardId, title: "", description: "" })
     const { cards, setCards, toggleCardForm } = props
 
     function handleChange(e) {
