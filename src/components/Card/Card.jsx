@@ -6,9 +6,10 @@ export default function Card({ props }) {
     const { card, removeCard } = props
     const { id, title, description } = card
 
-    // collecting function for drag&drop:
+    // collecting function for dragging:
     const [{ isDragging }, drag] = useDrag(() => ({
         type: CardType.CARD,
+        item: card,
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
