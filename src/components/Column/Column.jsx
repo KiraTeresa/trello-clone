@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 export default function Collumn({ props }) {
     const [cards, setCards] = useState([])
     const [cardForm, setCardForm] = useState(false)
-    const { title } = props
+    const { col, removeColumn } = props
+    const { title } = col
 
     // useEffect(() => {
     //     console.log("rendering")
@@ -24,6 +25,7 @@ export default function Collumn({ props }) {
     return (
         <div className="collumn">
             <h2>{title}</h2>
+            <button onClick={() => removeColumn(title)}>remove col</button>
             {cards.map((card, index) => {
                 return <Card key={index} props={{ card, removeCard }} />
             })}

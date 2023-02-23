@@ -11,11 +11,16 @@ function App() {
     setColumnForm(!columnForm)
   }
 
+  function removeColumn(title){
+    const updatedColumns = columns.filter((col) => col.title !== title)
+    setColumns(updatedColumns)
+  }
+
   return (
     <div className="App">
       <button onClick={toggleColumnForm}>Add new column</button>
       {
-        columns.map((col, index) => {return <Column key={index} props={col}/>}
+        columns.map((col, index) => {return <Column key={index} props={{col, removeColumn}}/>}
         )
       }
       {columnForm? <ColumnForm props={{columns, setColumns, toggleColumnForm}}/>:""}
