@@ -1,11 +1,12 @@
-import './collumn.scss'
+import './column.scss'
 import Card from '../Card/Card'
 import CardForm from '../Card/CardForm'
 import { useEffect, useState } from 'react'
 
-export default function Collumn() {
+export default function Collumn({ props }) {
     const [cards, setCards] = useState([])
     const [cardForm, setCardForm] = useState(false)
+    const { title } = props
 
     // useEffect(() => {
     //     console.log("rendering")
@@ -22,7 +23,7 @@ export default function Collumn() {
 
     return (
         <div className="collumn">
-            <h2>Column Title</h2>
+            <h2>{title}</h2>
             {cards.map((card, index) => {
                 return <Card key={index} props={{ card, removeCard }} />
             })}
