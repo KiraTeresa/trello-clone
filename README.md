@@ -30,10 +30,6 @@ Add more advanced functionality:
 
 > Columns can be deleted.
 
-### `Card`
-
-> Drag&Drop function to move card from one column to another
-
 
 ## Step 3
 
@@ -45,4 +41,4 @@ Make it more dynamic:
 
 ### `Card`
 
-> Drag&Drop to change position within a column
+> Drag&Drop to change position within a column and to move card from one column to another
