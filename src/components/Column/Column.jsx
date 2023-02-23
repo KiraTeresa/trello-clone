@@ -19,6 +19,8 @@ export default function Collumn({ props }) {
         }),
         drop: (item) => addCard(item)
     }))
+    // TODO: dropping works, but sometimes replaces existing cards
+    // TODO: dragged card need to be removed from starting column
 
     function toggleCardForm() {
         setCardForm(!cardForm)
