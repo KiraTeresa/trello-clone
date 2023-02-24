@@ -26,7 +26,7 @@ export default function Board() {
             <div className='col-wrap'>
 
                 {
-                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn }} /> }
+                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, columns }} /> }
                     )
                 }
                 {columnForm ? <ColumnForm props={{ columns, setColumns, toggleColumnForm }} /> : ""}

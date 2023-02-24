@@ -16,38 +16,43 @@ export default function Column({ props }) {
     const { id, title, cards } = column
 
     useEffect(() => {
-        console.log("Column title: ", title, " and its cards: ")
-        console.table(cards)
+        // console.log("Column title: ", title, " and its cards: ")
+        // console.table(cards)
     }, [cards, title])
 
     // make each column become a drop target for cards:
-    const [{ isOver }, drop] = useDrop(() => ({
+    const [{ isOver, didDrop }, drop] = useDrop(() => ({
         accept: CardType.CARD,
         collect: (monitor) => ({
-            isOver: !!monitor.isOver()
+            isOver: !!monitor.isOver(),
+            didDrop: !!monitor.didDrop(),
+            source: column,
         }),
-        drop: (item) => addCard(item)
+        drop: (item, source) => addCard(item, source)
     }))
-    // TODO: dropping works, but sometimes replaces existing cards
     // TODO: dragged card need to be removed from starting column
+    // ? useContext for columns (stored in Board.jsx) ?
 
     function toggleCardForm() {
         setCardForm(!cardForm)
     }
 
-    function removeCard(cardTitle) {
-        const updatedCards = col.cards.filter((card) => card.title !== cardTitle)
+    function removeCard(cardId) {
+        const updatedCards = col.cards.filter((card) => card.id !== cardId)
         setColumn({ ...column, cards: updatedCards })
     }
 
-    const addCard = (item) => {
+    const addCard = (item, source) => {
         const containsItem = column.cards.find((card) => card.id === item.id)
         if (!containsItem) {
+            const prevCol = "" // TODO: remove card from prev column
             setColumn((previousState) => ({
-                ...previousState,
+                ...previousState, // track previous state in order to not overwrite last action
                 cards: [...previousState.cards, item],
             }))
+            console.log(source)
         }
+        console.log("Dropped? ", didDrop)
     }
 
     return (
