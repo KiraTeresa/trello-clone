@@ -1,15 +1,24 @@
 import './column.scss'
 import Card from '../Card/Card'
 import CardForm from '../Card/CardForm'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { CardType } from '../../constants/types'
 
-export default function Collumn({ props }) {
-    const [cards, setCards] = useState([])
-    const [cardForm, setCardForm] = useState(false)
+export default function Column({ props }) {
     const { col, removeColumn } = props
-    const { id, title } = col
+    const [cardForm, setCardForm] = useState(false)
+    const [column, setColumn] = useState({
+        id: col.id,
+        title: col.title,
+        cards: []
+    })
+    const { id, title, cards } = column
+
+    useEffect(() => {
+        console.log("Column title: ", title, " and its cards: ")
+        console.table(cards)
+    }, [cards, title])
 
     // make each column become a drop target for cards:
     const [{ isOver }, drop] = useDrop(() => ({
@@ -26,15 +35,18 @@ export default function Collumn({ props }) {
         setCardForm(!cardForm)
     }
 
-    function removeCard(title) {
-        const updatedCards = cards.filter((card) => card.title !== title)
-        setCards(updatedCards)
+    function removeCard(cardTitle) {
+        const updatedCards = col.cards.filter((card) => card.title !== cardTitle)
+        setColumn({ ...column, cards: updatedCards })
     }
 
-    function addCard(item) {
-        const containsItem = cards.find((card) => card.id === item.id)
+    const addCard = (item) => {
+        const containsItem = column.cards.find((card) => card.id === item.id)
         if (!containsItem) {
-            setCards([...cards, item])
+            setColumn((previousState) => ({
+                ...previousState,
+                cards: [...previousState.cards, item],
+            }))
         }
     }
 
@@ -49,7 +61,7 @@ export default function Collumn({ props }) {
                 {cards.map((card, index) => {
                     return <Card key={index} props={{ card, removeCard }} />
                 })}
-                {cardForm ? <CardForm props={{ cards, setCards, toggleCardForm }} /> : ""}
+                {cardForm ? <CardForm props={{ cards: column.cards, column, setColumn, toggleCardForm }} /> : ""}
                 <button onClick={toggleCardForm}>Add Card</button>
             </div>
         </div>

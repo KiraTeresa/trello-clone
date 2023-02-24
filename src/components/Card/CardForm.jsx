@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 export default function CardForm({ props }) {
     const cardId = uuidv4()
     const [data, setData] = useState({ id: cardId, title: "", description: "" })
-    const { cards, setCards, toggleCardForm } = props
+    // const { cards, setCards, toggleCardForm } = props
+    const { column, setColumn, toggleCardForm } = props
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -14,7 +15,8 @@ export default function CardForm({ props }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setCards([...cards, data])
+        // setCards([...cards, data])
+        setColumn({ ...column, cards: [...column.cards, data] })
         setData({ title: "", description: "" })
         toggleCardForm()
     }

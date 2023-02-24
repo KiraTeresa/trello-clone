@@ -1,11 +1,15 @@
 import Column from '../Column/Column';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
 
 export default function Board() {
-    const [columns, setColumns] = useState([{ title: "C-One" }])
+    const [columns, setColumns] = useState([])
     const [columnForm, setColumnForm] = useState(false)
+
+    useEffect(() => {
+        console.table(columns)
+    }, [columns])
 
     function toggleColumnForm() {
         setColumnForm(!columnForm)
