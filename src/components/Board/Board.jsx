@@ -2,21 +2,23 @@ import Column from '../Column/Column';
 import { useEffect, useState } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
+import colData from '../../data/columns.json'
+import cardData from '../../data/cards.json'
 
 export default function Board() {
     const [columns, setColumns] = useState([])
     const [columnForm, setColumnForm] = useState(false)
 
     useEffect(() => {
-        console.table(columns)
+        setColumns(colData)
     }, [columns])
 
     function toggleColumnForm() {
         setColumnForm(!columnForm)
     }
 
-    function removeColumn(title) {
-        const updatedColumns = columns.filter((col) => col.title !== title)
+    function removeColumn(colId) {
+        const updatedColumns = columns.filter((col) => col.id !== colId)
         setColumns(updatedColumns)
     }
 

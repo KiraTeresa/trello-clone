@@ -47,7 +47,7 @@ export default function Column({ props }) {
             <div className='col-head'>
                 <h2>{title}</h2>
                 <p>ID: {id}</p>
-                <button onClick={() => removeColumn(title)}>remove col</button>
+                <button onClick={() => removeColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
                 {cards.map((card, index) => {
