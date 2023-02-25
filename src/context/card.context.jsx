@@ -1,16 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import cardData from '../data/cards.json'
+// import cardData from '../data/cards.json'
 
 const CardContext = createContext()
 
 function CardContextProviderWrapper(props) {
-    const [allCards, setAllCards] = useState(cardData)
+    const [allCards, setAllCards] = useState([])
 
     useEffect(() => {
         console.log("Welcome ", allCards)
-        const data = JSON.stringify(allCards)
-        localStorage.setItem("cards", data)
+        // const data = JSON.stringify(allCards)
+        // localStorage.setItem("cards", data)
+        setCards()
     }, [allCards])
+
+    const setCards = () => {
+        const getCards = getAllCards()
+        setAllCards(getCards)
+    }
 
     const getAllCards = () => {
         return JSON.parse(localStorage.getItem("cards"))
@@ -29,16 +35,12 @@ function CardContextProviderWrapper(props) {
     }
 
     const moveCard = (item, monitor, colId) => {
-        console.log("Every card there ist ****** ", allCards)
-        console.log("The item ", item, " -- new col: ", colId)
-        const foundCard = allCards.find((card) => card.id === item.id)
-        console.log("found: ", foundCard)
+        const getCards = getAllCards()
+        const filteredList = getCards.filter((card) => card.id !== item.id)
+        const foundCard = getCards.find((card) => card.id === item.id)
         const updatedCard = { ...foundCard, currCol: colId }
-        console.log("updated: ", updatedCard)
-        setAllCards(prevState => {
-            const newState = prevState.filter((card) => card.id !== item.id)
-            return [...newState, updatedCard]
-        })
+        const updatedList = [...filteredList, updatedCard]
+        localStorage.setItem("cards", JSON.stringify(updatedList))
     }
     // TODO: >> newly created cards loose info after beeing moved --> allCards gets resettet
     // TODO: >> does not always move the correct card --> changed index
