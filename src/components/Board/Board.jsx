@@ -20,13 +20,26 @@ export default function Board() {
         setColumns(updatedColumns)
     }
 
+    const addCard = (item, monitor) => {
+        const containsItem = column.cards.find((card) => card.id === item.id)
+        if (!containsItem) {
+            const prevCol = "" // TODO: remove card from prev column
+            setColumn((previousState) => ({
+                ...previousState, // track previous state in order to not overwrite last action
+                cards: [...previousState.cards, item],
+            }))
+            console.log(monitor)
+        }
+        console.log("Dropped? ", didDrop)
+    }
+
     return (
         <>
             <button onClick={toggleColumnForm}>Add new column</button>
             <div className='col-wrap'>
 
                 {
-                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, columns }} /> }
+                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, columns, addCard }} /> }
                     )
                 }
                 {columnForm ? <ColumnForm props={{ columns, setColumns, toggleColumnForm }} /> : ""}

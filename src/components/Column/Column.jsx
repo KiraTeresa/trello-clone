@@ -6,7 +6,7 @@ import { useDrop } from 'react-dnd'
 import { CardType } from '../../constants/types'
 
 export default function Column({ props }) {
-    const { col, removeColumn } = props
+    const { col, removeColumn, addCard } = props
     const [cardForm, setCardForm] = useState(false)
     const [column, setColumn] = useState({
         id: col.id,
@@ -28,7 +28,7 @@ export default function Column({ props }) {
             didDrop: !!monitor.didDrop(),
             source: column,
         }),
-        drop: (item, source) => addCard(item, source)
+        drop: (item, monitor) => addCard(item, monitor)
     }))
     // TODO: dragged card need to be removed from starting column
     // ? useContext for columns (stored in Board.jsx) ?
@@ -40,19 +40,6 @@ export default function Column({ props }) {
     function removeCard(cardId) {
         const updatedCards = col.cards.filter((card) => card.id !== cardId)
         setColumn({ ...column, cards: updatedCards })
-    }
-
-    const addCard = (item, source) => {
-        const containsItem = column.cards.find((card) => card.id === item.id)
-        if (!containsItem) {
-            const prevCol = "" // TODO: remove card from prev column
-            setColumn((previousState) => ({
-                ...previousState, // track previous state in order to not overwrite last action
-                cards: [...previousState.cards, item],
-            }))
-            console.log(source)
-        }
-        console.log("Dropped? ", didDrop)
     }
 
     return (
