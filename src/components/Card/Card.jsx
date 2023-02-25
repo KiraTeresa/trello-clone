@@ -3,7 +3,7 @@ import { CardType } from '../../constants/types'
 import { useDrag } from 'react-dnd'
 
 export default function Card({ props }) {
-    const { card, removeCard } = props
+    const { card, deleteCard } = props
     const { id, title, description } = card
 
     // collecting function for dragging:
@@ -23,7 +23,7 @@ export default function Card({ props }) {
             <h3>{title}</h3>
             <p>ID: {id}</p>
             <p>{description}</p>
-            <button onClick={() => removeCard(id)}>delete</button>
+            <button onClick={() => deleteCard(id)}>delete</button>
         </div>
     )
 }
