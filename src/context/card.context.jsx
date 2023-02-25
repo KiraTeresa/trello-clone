@@ -29,7 +29,11 @@ function CardContextProviderWrapper(props) {
 
         const filteredCards = allCards.filter((card) => card.id !== item.id)
         console.log("After--> ", [...filteredCards, updatedCard])
-        setAllCards([...filteredCards, updatedCard])
+        // setAllCards([...filteredCards, updatedCard])
+        setAllCards(prevState => {
+            const newState = prevState.filter((card) => card.id !== item.id)
+            return [...newState, updatedCard]
+        })
     }
     // TODO: >> newly created cards loose info after beeing moved
     // TODO: >> does not always move the correct card --> changed index
