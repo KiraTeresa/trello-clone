@@ -4,21 +4,12 @@ import CardForm from '../Card/CardForm'
 import { useState, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { CardType } from '../../constants/types'
+import cardData from '../../data/cards.json'
 
 export default function Column({ props }) {
-    const { col, removeColumn, addCard } = props
+    const { col, removeColumn, addCard, setCards } = props
     const [cardForm, setCardForm] = useState(false)
-    const [column, setColumn] = useState({
-        id: col.id,
-        title: col.title,
-        cards: []
-    })
-    const { id, title, cards } = column
-
-    useEffect(() => {
-        // console.log("Column title: ", title, " and its cards: ")
-        // console.table(cards)
-    }, [cards, title])
+    const { id, title } = col
 
     // make each column become a drop target for cards:
     const [{ isOver, didDrop }, drop] = useDrop(() => ({
@@ -26,9 +17,9 @@ export default function Column({ props }) {
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             didDrop: !!monitor.didDrop(),
-            source: column,
+            source: col,
         }),
-        drop: (item, monitor) => addCard(item, monitor)
+        drop: (item, monitor) => addCard(item, monitor, col.id)
     }))
     // TODO: dragged card need to be removed from starting column
     // ? useContext for columns (stored in Board.jsx) ?
@@ -37,10 +28,10 @@ export default function Column({ props }) {
         setCardForm(!cardForm)
     }
 
-    function removeCard(cardId) {
-        const updatedCards = col.cards.filter((card) => card.id !== cardId)
-        setColumn({ ...column, cards: updatedCards })
-    }
+    // function removeCard(cardId) {
+    //     const updatedCards = col.cards.filter((card) => card.id !== cardId)
+    //     setColumn({ ...column, cards: updatedCards })
+    // }
 
     return (
         <div className="collumn" style={{ backgroundColor: isOver && "purple" }}>
@@ -50,10 +41,10 @@ export default function Column({ props }) {
                 <button onClick={() => removeColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
-                {cards.map((card, index) => {
-                    return <Card key={index} props={{ card, removeCard }} />
+                {cardData.filter(card => card.currCol === id).map((card, index) => {
+                    return <Card key={index} props={{ card }} />
                 })}
-                {cardForm ? <CardForm props={{ cards: column.cards, column, setColumn, toggleCardForm }} /> : ""}
+                {cardForm ? <CardForm props={{ cardData, col, setCards, toggleCardForm }} /> : ""}
                 <button onClick={toggleCardForm}>Add Card</button>
             </div>
         </div>

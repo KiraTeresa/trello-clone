@@ -8,10 +8,12 @@ import cardData from '../../data/cards.json'
 export default function Board() {
     const [columns, setColumns] = useState([])
     const [columnForm, setColumnForm] = useState(false)
+    const [cards, setCards] = useState([])
 
     useEffect(() => {
         setColumns(colData)
-    }, [columns])
+        setCards(cardData)
+    }, [columns, cards])
 
     function toggleColumnForm() {
         setColumnForm(!columnForm)
@@ -22,17 +24,12 @@ export default function Board() {
         setColumns(updatedColumns)
     }
 
-    const addCard = (item, monitor) => {
-        const containsItem = column.cards.find((card) => card.id === item.id)
-        if (!containsItem) {
-            const prevCol = "" // TODO: remove card from prev column
-            setColumn((previousState) => ({
-                ...previousState, // track previous state in order to not overwrite last action
-                cards: [...previousState.cards, item],
-            }))
-            console.log(monitor)
-        }
-        console.log("Dropped? ", didDrop)
+    const addCard = (item, monitor, colId) => {
+        const foundCard = cards.find((card) => card.id === item.id)
+        const foundIndex = cards.indexOf(foundCard)
+        console.log("Before: ", cards[foundIndex].currCol)
+        cards[foundIndex].currCol = colId
+        console.log("After --> ", cards[foundIndex].currCol)
     }
 
     return (
