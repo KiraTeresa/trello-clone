@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import cardData from '../data/cards.json'
 
 const CardContext = createContext()
@@ -6,10 +6,23 @@ const CardContext = createContext()
 function CardContextProviderWrapper(props) {
     const [allCards, setAllCards] = useState(cardData)
 
+    useEffect(() => {
+        console.log("Welcome ", allCards)
+        const data = JSON.stringify(allCards)
+        localStorage.setItem("cards", data)
+    }, [allCards])
+
+    const getAllCards = () => {
+        return JSON.parse(localStorage.getItem("cards"))
+    }
+
     const addNewCard = (cardInfo) => {
-        const newCardList = [...allCards, cardInfo]
-        console.log("updated: ", newCardList)
-        setAllCards(newCardList)
+        console.log("New info _ ", cardInfo)
+        // setAllCards(prevState => [...prevState, cardInfo])
+
+        const storedCards = getAllCards()
+        const updatedList = [...storedCards, cardInfo]
+        localStorage.setItem("cards", JSON.stringify(updatedList))
     }
 
     const deleteCard = (cardId) => {
@@ -18,24 +31,18 @@ function CardContextProviderWrapper(props) {
     }
 
     const moveCard = (item, monitor, colId) => {
-        // console.log("the item <<<<<>>>>> ", item)
-        // console.log("the monitor <<<<<>>>>> ", monitor)
-        console.log("ALL...", allCards)
+        console.log("Every card there ist ****** ", allCards)
+        console.log("The item ", item, " -- new col: ", colId)
         const foundCard = allCards.find((card) => card.id === item.id)
-        console.log("Before: ", foundCard)
-
+        console.log("found: ", foundCard)
         const updatedCard = { ...foundCard, currCol: colId }
-        console.log("Updated: ", updatedCard)
-
-        const filteredCards = allCards.filter((card) => card.id !== item.id)
-        console.log("After--> ", [...filteredCards, updatedCard])
-        // setAllCards([...filteredCards, updatedCard])
+        console.log("updated: ", updatedCard)
         setAllCards(prevState => {
             const newState = prevState.filter((card) => card.id !== item.id)
             return [...newState, updatedCard]
         })
     }
-    // TODO: >> newly created cards loose info after beeing moved
+    // TODO: >> newly created cards loose info after beeing moved --> allCards gets resettet
     // TODO: >> does not always move the correct card --> changed index
 
     const moveItem = (dragIndex, hoverIndex) => {
@@ -56,10 +63,22 @@ function CardContextProviderWrapper(props) {
     }
 
     return (
-        <CardContext.Provider value={{ allCards, addNewCard, deleteCard, moveCard, moveItem, onDrop }}>
+        <CardContext.Provider value={{
+            getAllCards,
+            allCards,
+            addNewCard,
+            deleteCard,
+            moveCard,
+            moveItem,
+            onDrop
+        }}>
             {props.children}
         </CardContext.Provider>
     )
 }
 
-export { CardContextProviderWrapper, CardContext }
+function useCardContext() {
+    return useContext(CardContext)
+}
+
+export { CardContextProviderWrapper, CardContext, useCardContext }

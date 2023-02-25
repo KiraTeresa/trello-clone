@@ -1,14 +1,14 @@
 import './column.scss'
 import Card from '../Card/Card'
 import CardForm from '../Card/CardForm'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import { CardType } from '../../constants/types'
-import { CardContext } from '../../context/card.context';
+import { useCardContext } from '../../context/card.context';
 
 export default function Column({ props }) {
     const { col, removeColumn } = props
-    const { allCards, moveCard, onDrop } = useContext(CardContext)
+    const { allCards, moveCard, onDrop } = useCardContext()
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
 

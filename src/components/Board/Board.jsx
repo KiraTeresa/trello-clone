@@ -1,17 +1,18 @@
 import Column from '../Column/Column';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
 import colData from '../../data/columns.json'
-import { CardContext } from '../../context/card.context';
+import { useCardContext } from '../../context/card.context';
 
 export default function Board() {
-    const { allCards, onDrop } = useContext(CardContext)
+    const { getAllCards, allCards, onDrop } = useCardContext()
     const [columns, setColumns] = useState(colData)
     const [columnForm, setColumnForm] = useState(false)
 
     useEffect(() => {
         console.log(">>> useEffect fired <<<")
+        console.log("--- got it from local storage: ", getAllCards())
     }, [allCards])
 
     function toggleColumnForm() {

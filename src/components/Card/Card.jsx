@@ -1,11 +1,11 @@
 import './card.scss'
 import { CardType } from '../../constants/types'
 import { useDrag, useDrop } from 'react-dnd'
-import { useContext, useRef } from 'react'
-import { CardContext } from '../../context/card.context';
+import { useRef } from 'react'
+import { useCardContext } from '../../context/card.context';
 
 export default function Card({ props }) {
-    const { deleteCard, moveItem } = useContext(CardContext)
+    const { deleteCard, moveItem } = useCardContext()
     const ref = useRef(null)
     const { card, index: cardIndex } = props
     const { id, title, description } = card
