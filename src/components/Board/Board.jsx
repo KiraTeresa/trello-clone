@@ -49,22 +49,13 @@ export default function Board() {
     }
     // TODO: >> does not always move the correct card --> changed index
 
-    function deleteCard(cardId) {
-        console.log("Cards before: ", cards)
-        const updatedCards = cards.filter(card => card.id !== cardId)
-        console.log("Cards after --> ", updatedCards)
-        setCards([...updatedCards])
-        console.log("Card removed")
-    }
-    // TODO: >> deleting cards doesn't work anymore
-
     return (
         <div>
             <button onClick={toggleColumnForm}>Add new column</button>
             <div className='col-wrap'>
 
                 {
-                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, moveCard, deleteCard }} /> }
+                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, moveCard }} /> }
                     )
                 }
                 {columnForm ? <ColumnForm props={{ columns, setColumns, toggleColumnForm }} /> : ""}

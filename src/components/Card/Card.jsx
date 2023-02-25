@@ -1,9 +1,12 @@
 import './card.scss'
 import { CardType } from '../../constants/types'
 import { useDrag } from 'react-dnd'
+import { useContext } from 'react'
+import { CardContext } from '../../context/card.context';
 
 export default function Card({ props }) {
-    const { card, deleteCard } = props
+    const { deleteCard } = useContext(CardContext)
+    const { card } = props
     const { id, title, description } = card
 
     // collecting function for dragging:

@@ -10,8 +10,16 @@ function CardContextProviderWrapper(props) {
         setAllCards([...allCards, cardInfo])
     }
 
+    function deleteCard(cardId) {
+        console.log("Cards before: ", allCards)
+        const updatedCards = allCards.filter(card => card.id !== cardId)
+        console.log("Cards after --> ", updatedCards)
+        setAllCards([...updatedCards])
+        console.log("Card removed")
+    }
+
     return (
-        <CardContext.Provider value={{ addNewCard, allCards }}>
+        <CardContext.Provider value={{ allCards, addNewCard, deleteCard }}>
             {props.children}
         </CardContext.Provider>
     )
