@@ -7,14 +7,14 @@ import { CardType } from '../../constants/types'
 import { CardContext } from '../../context/card.context';
 
 export default function Column({ props }) {
-    const { col, removeColumn, moveCard, deleteCard } = props
-    const { allCards } = useContext(CardContext)
+    const { col, removeColumn } = props
+    const { allCards, moveCard, onDrop } = useContext(CardContext)
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
 
-    useEffect(() => {
-        console.log("re-render column")
-    }, [allCards])
+    // useEffect(() => {
+    //     console.log("re-render column")
+    // }, [allCards])
 
     // make each column become a drop target for cards:
     const [{ isOver }, drop] = useDrop(() => ({
@@ -22,7 +22,10 @@ export default function Column({ props }) {
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         }),
-        drop: (item, monitor) => moveCard(item, monitor, col.id)
+        // drop: (item, monitor) => moveCard(item, monitor, col.id)
+        drop: (item, monitor) => {
+            onDrop(item, monitor, col)
+        }
     }))
 
     function toggleCardForm() {
@@ -38,7 +41,7 @@ export default function Column({ props }) {
             </div>
             <div className='col-body' ref={drop}>
                 {allCards.filter(card => card.currCol === id).map((card, index) => {
-                    return <Card key={index} props={{ card, deleteCard }} />
+                    return <Card key={index} props={{ card, index }} />
                 })}
                 {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}
 

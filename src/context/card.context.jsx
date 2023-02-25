@@ -7,19 +7,52 @@ function CardContextProviderWrapper(props) {
     const [allCards, setAllCards] = useState(cardData)
 
     const addNewCard = (cardInfo) => {
-        setAllCards([...allCards, cardInfo])
+        const newCardList = [...allCards, cardInfo]
+        console.log("updated: ", newCardList)
+        setAllCards(newCardList)
     }
 
-    function deleteCard(cardId) {
-        console.log("Cards before: ", allCards)
+    const deleteCard = (cardId) => {
         const updatedCards = allCards.filter(card => card.id !== cardId)
-        console.log("Cards after --> ", updatedCards)
         setAllCards([...updatedCards])
-        console.log("Card removed")
+    }
+
+    const moveCard = (item, monitor, colId) => {
+        // console.log("the item <<<<<>>>>> ", item)
+        // console.log("the monitor <<<<<>>>>> ", monitor)
+        console.log("ALL...", allCards)
+        const foundCard = allCards.find((card) => card.id === item.id)
+        console.log("Before: ", foundCard)
+
+        const updatedCard = { ...foundCard, currCol: colId }
+        console.log("Updated: ", updatedCard)
+
+        const filteredCards = allCards.filter((card) => card.id !== item.id)
+        console.log("After--> ", [...filteredCards, updatedCard])
+        setAllCards([...filteredCards, updatedCard])
+    }
+    // TODO: >> newly created cards loose info after beeing moved
+    // TODO: >> does not always move the correct card --> changed index
+
+    const moveItem = (dragIndex, hoverIndex) => {
+        console.log("drag: ", dragIndex, " + hover: ", hoverIndex)
+        const item = allCards[dragIndex];
+        setAllCards(prevState => {
+            const newItems = prevState.filter((i, idx) => idx !== dragIndex);
+            newItems.splice(hoverIndex, 0, item);
+            return [...newItems];
+        });
+    };
+
+    const onDrop = (item, monitor, col) => {
+        // console.log("Drop this item ", item)
+        // console.log("dropped in col ", col)
+        console.log("WHAT --- ", monitor.getInitialClientOffset())
+        moveCard(item, monitor, col.id)
     }
 
     return (
-        <CardContext.Provider value={{ allCards, addNewCard, deleteCard }}>
+        <CardContext.Provider value={{ allCards, addNewCard, deleteCard, moveCard, moveItem, onDrop }}>
             {props.children}
         </CardContext.Provider>
     )

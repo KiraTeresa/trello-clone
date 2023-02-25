@@ -3,26 +3,16 @@ import { useEffect, useState, useContext } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
 import colData from '../../data/columns.json'
-import cardData from '../../data/cards.json'
 import { CardContext } from '../../context/card.context';
 
 export default function Board() {
-    const { cardsAll, addNewCard } = useContext(CardContext)
+    const { allCards, onDrop } = useContext(CardContext)
     const [columns, setColumns] = useState(colData)
     const [columnForm, setColumnForm] = useState(false)
-    const [cards, setCards] = useState([])
-
-    // console.table(allCards)
-    console.table(cardsAll)
-
-    useEffect(() => {
-        // setColumns(colData)
-        setCards(cardData)
-    }, [])
 
     useEffect(() => {
         console.log(">>> useEffect fired <<<")
-    }, [cardsAll])
+    }, [allCards])
 
     function toggleColumnForm() {
         setColumnForm(!columnForm)
@@ -33,21 +23,7 @@ export default function Board() {
         setColumns(updatedColumns)
     }
 
-    const moveCard = (item, monitor, colId) => {
-        const foundCard = cards.find((card) => card.id === item.id)
-        // const foundIndex = cards.indexOf(foundCard)
-        // console.log("Before: ", cards[foundIndex].currCol)
-        console.log("Before: ", foundCard)
-        // cards[foundIndex].currCol = colId
-        const updatedCard = { ...foundCard, currCol: colId }
-        console.log("Updated: ", updatedCard)
-        const filteredCards = cards.filter((card) => card.id !== item.id)
-        setCards([...filteredCards, updatedCard])
-        // console.log("After --> ", cards[foundIndex].currCol)
-        console.log("After--> ", [...filteredCards, updatedCard])
-        // console.log("The MONITOR ", monitor)
-    }
-    // TODO: >> does not always move the correct card --> changed index
+
 
     return (
         <div>
@@ -55,7 +31,7 @@ export default function Board() {
             <div className='col-wrap'>
 
                 {
-                    columns.map((col, index) => { return <Column key={index} props={{ col, removeColumn, moveCard }} /> }
+                    columns.map((col, index) => { return <Column key={index} onDrop={onDrop} props={{ col, removeColumn }} /> }
                     )
                 }
                 {columnForm ? <ColumnForm props={{ columns, setColumns, toggleColumnForm }} /> : ""}
