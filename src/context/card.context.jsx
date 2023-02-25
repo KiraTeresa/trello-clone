@@ -7,11 +7,8 @@ function CardContextProviderWrapper(props) {
     const [allCards, setAllCards] = useState([])
 
     useEffect(() => {
-        console.log("Welcome ", allCards)
-        // const data = JSON.stringify(allCards)
-        // localStorage.setItem("cards", data)
         setCards()
-    }, [allCards])
+    }, [])
 
     const setCards = () => {
         const getCards = getAllCards()
@@ -26,12 +23,14 @@ function CardContextProviderWrapper(props) {
         const storedCards = getAllCards()
         const updatedList = [...storedCards, cardInfo]
         localStorage.setItem("cards", JSON.stringify(updatedList))
+        setCards()
     }
 
     const deleteCard = (cardId) => {
         const storedCards = getAllCards()
         const updatedList = storedCards.filter((card) => card.id !== cardId)
         localStorage.setItem("cards", JSON.stringify(updatedList))
+        setCards()
     }
 
     const moveCard = (item, monitor, colId) => {
@@ -41,8 +40,8 @@ function CardContextProviderWrapper(props) {
         const updatedCard = { ...foundCard, currCol: colId }
         const updatedList = [...filteredList, updatedCard]
         localStorage.setItem("cards", JSON.stringify(updatedList))
+        setCards()
     }
-    // TODO: >> newly created cards loose info after beeing moved --> allCards gets resettet
     // TODO: >> does not always move the correct card --> changed index
 
     const moveItem = (dragIndex, hoverIndex) => {
