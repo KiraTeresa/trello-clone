@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function CardForm({ props }) {
-    const { column, setColumn, toggleCardForm } = props
+    const { cards, col, setCards, toggleCardForm } = props
     const cardId = uuidv4()
-    const [data, setData] = useState({ id: cardId, title: "", description: "", colHistory: [column.id] })
+    const [data, setData] = useState({ id: cardId, title: "", description: "", currCol: col.id })
     // const { cards, setCards, toggleCardForm } = props
 
     function handleChange(e) {
@@ -16,8 +16,8 @@ export default function CardForm({ props }) {
     function handleSubmit(e) {
         e.preventDefault()
         // setCards([...cards, data])
-        setColumn({ ...column, cards: [...column.cards, data] })
-        setData({ id: uuidv4(), title: "", description: "", colHistory: [column.id] })
+        setCards([...cards, data])
+        setData({ id: uuidv4(), title: "", description: "", currCol: col.id })
         toggleCardForm()
     }
 

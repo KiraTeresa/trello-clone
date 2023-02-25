@@ -2,9 +2,10 @@ import Column from '../Column/Column';
 import { useEffect, useState } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
+import Columns from '../../data/columns.json'
 
 export default function Board() {
-    const [columns, setColumns] = useState([])
+    const [columns, setColumns] = useState(Columns)
     const [columnForm, setColumnForm] = useState(false)
 
     useEffect(() => {

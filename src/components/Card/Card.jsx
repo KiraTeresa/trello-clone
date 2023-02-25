@@ -1,14 +1,16 @@
 import './card.scss'
 import { CardType } from '../../constants/types'
-import { useDrag } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd'
+import { useRef } from 'react'
 
 export default function Card({ props }) {
     const { card, removeCard } = props
-    const { id, title, description, colHistory } = card
+    const { id, title, description } = card
+    const ref = useRef(null)
 
     // collecting function for dragging:
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: CardType.CARD,
+        type: CardType,
         item: card,
         options: {
             dropEffect: "move"
@@ -18,12 +20,16 @@ export default function Card({ props }) {
         })
     }))
 
+    const [, drop] = useDrop({
+        accept: CardType,
+
+    })
+
     return (
         <div className="card" ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move' }}>
             <h3>{title}</h3>
             <p>ID: {id}</p>
             <p>{description}</p>
-            <ul>{colHistory.map(col => <li key={col}>{col}</li>)}</ul>
             <button onClick={() => removeCard(id)}>delete</button>
         </div>
     )
