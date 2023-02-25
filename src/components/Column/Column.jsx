@@ -1,26 +1,26 @@
 import './column.scss'
 import Card from '../Card/Card'
 import CardForm from '../Card/CardForm'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useDrop } from 'react-dnd'
 import { CardType } from '../../constants/types'
-import cardData from '../../data/cards.json'
+import { CardContext } from '../../context/card.context';
 
 export default function Column({ props }) {
-    const { col, removeColumn, moveCard, addCard, deleteCard, cards } = props
+    const { col, removeColumn, moveCard, deleteCard } = props
+    const { allCards } = useContext(CardContext)
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
 
     useEffect(() => {
         console.log("re-render column")
-    }, [cards])
+    }, [allCards])
 
     // make each column become a drop target for cards:
-    const [{ isOver, didDrop }, drop] = useDrop(() => ({
+    const [{ isOver }, drop] = useDrop(() => ({
         accept: CardType.CARD,
         collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-            didDrop: !!monitor.didDrop()
+            isOver: !!monitor.isOver()
         }),
         drop: (item, monitor) => moveCard(item, monitor, col.id)
     }))
@@ -37,10 +37,10 @@ export default function Column({ props }) {
                 <button onClick={() => removeColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
-                {cardData.filter(card => card.currCol === id).map((card, index) => {
+                {allCards.filter(card => card.currCol === id).map((card, index) => {
                     return <Card key={index} props={{ card, deleteCard }} />
                 })}
-                {cardForm ? <CardForm props={{ cards, addCard, toggleCardForm, col }} /> : ""}
+                {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}
 
                 <button onClick={toggleCardForm}>Add Card</button>
             </div>

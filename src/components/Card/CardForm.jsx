@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { CardContext } from '../../context/card.context';
 
 export default function CardForm({ props }) {
-    const { cards, addCard, toggleCardForm, col } = props
+    const { addNewCard } = useContext(CardContext)
+    const { toggleCardForm, col } = props
     const cardId = uuidv4()
     const [data, setData] = useState({ id: cardId, title: "", description: "", currCol: col.id })
 
@@ -14,10 +16,7 @@ export default function CardForm({ props }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        // console.log(data)
-        // console.log("<<>> ", cards)
-
-        addCard(data)
+        addNewCard(data)
         setData({ id: uuidv4(), title: "", description: "", currCol: col.id })
         toggleCardForm()
     }
