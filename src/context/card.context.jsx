@@ -17,17 +17,15 @@ function CardContextProviderWrapper(props) {
     }
 
     const addNewCard = (cardInfo) => {
-        console.log("New info _ ", cardInfo)
-        // setAllCards(prevState => [...prevState, cardInfo])
-
         const storedCards = getAllCards()
         const updatedList = [...storedCards, cardInfo]
         localStorage.setItem("cards", JSON.stringify(updatedList))
     }
 
     const deleteCard = (cardId) => {
-        const updatedCards = allCards.filter(card => card.id !== cardId)
-        setAllCards([...updatedCards])
+        const storedCards = getAllCards()
+        const updatedList = storedCards.filter((card) => card.id !== cardId)
+        localStorage.setItem("cards", JSON.stringify(updatedList))
     }
 
     const moveCard = (item, monitor, colId) => {
