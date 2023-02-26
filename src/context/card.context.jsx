@@ -43,7 +43,6 @@ function CardContextProviderWrapper(props) {
         localStorage.setItem("cards", JSON.stringify(updatedList))
         setCards()
     }
-    // TODO: >> does not always move the correct card --> changed index
 
     const moveItem = (dragIndex, hoverIndex) => {
         console.log("drag: ", dragIndex, " + hover: ", hoverIndex)

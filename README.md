@@ -33,6 +33,15 @@ Add more advanced functionality:
 
 ## Step 3
 
+Drag&Drop:
+
+### `Card`
+
+> Drag&Drop to move card from one column to another
+
+
+## Step 4
+
 Make it more dynamic:
 
 ### `Column`
@@ -41,4 +50,4 @@ Make it more dynamic:
 
 ### `Card`
 
-> Drag&Drop to change position within a column and to move card from one column to another
+> Drag&Drop to change position within a column
