@@ -23,6 +23,8 @@ export default function Column({ props }) {
         }
     }))
 
+    // TODO: implement dnd for columns
+
     function toggleCardForm() {
         setCardForm(!cardForm)
     }

@@ -54,7 +54,6 @@ function CardContextProviderWrapper(props) {
         setCards()
     };
     // TODO: preview for dropping in other col
-    // TODO: figuring out why sometimes duplicates cards
 
     const onDrop = (item, monitor, col) => {
         moveCard(item, monitor, col.id)
