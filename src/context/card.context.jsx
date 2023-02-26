@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react"
-// import cardData from '../data/cards.json'
 
 const CardContext = createContext()
 
@@ -34,7 +33,6 @@ function CardContextProviderWrapper(props) {
     }
 
     const moveCard = (item, monitor, colId) => {
-        console.log("ITEM>> ", item)
         const getCards = getAllCards()
         const filteredList = getCards.filter((card) => card.id !== item.id)
         const foundCard = getCards.find((card) => card.id === item.id)
@@ -55,9 +53,6 @@ function CardContextProviderWrapper(props) {
     };
 
     const onDrop = (item, monitor, col) => {
-        // console.log("Drop this item ", item)
-        // console.log("dropped in col ", col)
-        console.log("WHAT --- ", monitor.getInitialClientOffset())
         moveCard(item, monitor, col.id)
     }
 
