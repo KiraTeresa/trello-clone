@@ -42,14 +42,20 @@ function CardContextProviderWrapper(props) {
         setCards()
     }
 
-    const moveItem = (dragIndex, hoverIndex) => {
-        console.log("drag: ", dragIndex, " + hover: ", hoverIndex)
-        const item = allCards[dragIndex];
-        setAllCards(prevState => {
-            const newItems = prevState.filter((i, idx) => idx !== dragIndex);
-            newItems.splice(hoverIndex, 0, item);
-            return [...newItems];
-        });
+    const moveItem = (dragIndex, hoverIndex, item, card) => {
+        console.table({ dragIndex, item, hoverIndex, card })
+        const getCards = getAllCards()
+        // const removeDragItem = getCards.filter(c => c.id !== item.id)
+        // const item = allCards[dragIndex];
+        const newItems = getCards.filter((i, idx) => idx !== dragIndex);
+        newItems.splice(hoverIndex, 0, item);
+        localStorage.setItem("cards", JSON.stringify(newItems))
+        setCards()
+        // setAllCards(prevState => {
+        //     const newItems = prevState.filter((i, idx) => idx !== dragIndex);
+        //     newItems.splice(hoverIndex, 0, item);
+        //     return [...newItems];
+        // });
     };
 
     const onDrop = (item, monitor, col) => {

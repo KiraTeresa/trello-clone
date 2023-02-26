@@ -36,7 +36,7 @@ export default function Column({ props }) {
                 <button onClick={() => deleteColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
-                {allCards.filter(card => card.currCol === id).map((card, index) => {
+                {allCards.filter(card => card?.currCol === id).map((card, index) => {
                     return <Card key={card.id} props={{ card, index }} />
                 })}
                 {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}
