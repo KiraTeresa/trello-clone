@@ -3,7 +3,7 @@
 With this project I would like to strengthen and expand my React skills.
 I pre-defined three steps with the functionalities I plan to achieve in each step.
 
-## Step 1
+## Step 1 :white_check_mark:
 
 Creating a basic layout and functionality with two components:
 
@@ -18,7 +18,7 @@ Creating a basic layout and functionality with two components:
 > Cards can be deleted.
 
 
-## Step 2
+## Step 2 :white_check_mark:
 
 Add more advanced functionality:
 
@@ -31,7 +31,7 @@ Add more advanced functionality:
 > Columns can be deleted.
 
 
-## Step 3
+## Step 3 :white_check_mark:
 
 Drag&Drop:
 
