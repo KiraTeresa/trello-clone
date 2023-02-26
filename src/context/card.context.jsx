@@ -34,29 +34,27 @@ function CardContextProviderWrapper(props) {
 
     const moveCard = (item, monitor, colId) => {
         const getCards = getAllCards()
-        const filteredList = getCards.filter((card) => card.id !== item.id)
         const foundCard = getCards.find((card) => card.id === item.id)
+        const idx = getCards.indexOf(foundCard)
         const updatedCard = { ...foundCard, currCol: colId }
-        const updatedList = [...filteredList, updatedCard]
+        const arrStart = getCards.slice(0, idx)
+        const arrEnd = getCards.slice(idx + 1)
+        const updatedList = arrStart.concat(updatedCard, ...arrEnd)
         localStorage.setItem("cards", JSON.stringify(updatedList))
         setCards()
     }
 
     const moveItem = (dragIndex, hoverIndex, item, card) => {
         console.table({ dragIndex, item, hoverIndex, card })
+
         const getCards = getAllCards()
-        // const removeDragItem = getCards.filter(c => c.id !== item.id)
-        // const item = allCards[dragIndex];
         const newItems = getCards.filter((i, idx) => idx !== dragIndex);
         newItems.splice(hoverIndex, 0, item);
         localStorage.setItem("cards", JSON.stringify(newItems))
         setCards()
-        // setAllCards(prevState => {
-        //     const newItems = prevState.filter((i, idx) => idx !== dragIndex);
-        //     newItems.splice(hoverIndex, 0, item);
-        //     return [...newItems];
-        // });
     };
+    // TODO: preview for dropping in other col
+    // TODO: figuring out why sometimes duplicates cards
 
     const onDrop = (item, monitor, col) => {
         moveCard(item, monitor, col.id)

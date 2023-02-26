@@ -53,10 +53,10 @@ export default function Card({ props }) {
             //     return
             // }
 
-            const hoveredRect = ref.current.getBoundingClientRect();
-            const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
-            const mousePosition = monitor.getClientOffset();
-            const hoverClientY = mousePosition.y - hoveredRect.top;
+            // const hoveredRect = ref.current.getBoundingClientRect();
+            // const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
+            // const mousePosition = monitor.getClientOffset();
+            // const hoverClientY = mousePosition.y - hoveredRect.top;
 
             // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
             //     return;
@@ -66,7 +66,7 @@ export default function Card({ props }) {
             //     return;
             // }
 
-            printPosition(dragIndex, hoverIndex, hoveredRect, hoverMiddleY, mousePosition, hoverClientY)
+            // printPosition(dragIndex, hoverIndex, hoveredRect, hoverMiddleY, mousePosition, hoverClientY)
 
             moveItem(dragIndex, hoverIndex, item, card);
             // item.index = hoverIndex;
