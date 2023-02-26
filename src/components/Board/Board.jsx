@@ -64,6 +64,7 @@ export default function Board() {
         // localStorage.setItem("columns", JSON.stringify(newItems))
         setColumns()
     }
+    // TODO: logic puts moved col always at the end --> implement dragIndex and hoverIndex
 
     // make board become a drop target for columns:
     const [{ isOver }, drop] = useDrop(() => ({
