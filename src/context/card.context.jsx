@@ -7,6 +7,7 @@ function CardContextProviderWrapper(props) {
 
     useEffect(() => {
         setCards()
+        // localStorage.clear()
     }, [])
 
     const setCards = () => {
@@ -15,7 +16,11 @@ function CardContextProviderWrapper(props) {
     }
 
     const getAllCards = () => {
-        return JSON.parse(localStorage.getItem("cards"))
+        const getCards = localStorage.getItem("cards")
+        if (getCards === "undefined" || !getCards) {
+            return []
+        }
+        return JSON.parse(getCards)
     }
 
     const addNewCard = (cardInfo) => {
@@ -54,6 +59,7 @@ function CardContextProviderWrapper(props) {
         setCards()
     };
     // TODO: preview for dropping in other col
+    // TODO: still duplicates cards when not supposed to
 
     const onDrop = (item, monitor, col) => {
         moveCard(item, monitor, col.id)

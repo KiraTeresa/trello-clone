@@ -10,7 +10,7 @@ export default function Card({ props }) {
     const { card } = props
     const { id, title, description } = card
 
-    // collecting function for dragging:
+    // collecting function for dragging the card:
     const [{ isDragging }, drag] = useDrag(() => ({
         type: CardType.CARD,
         item: card,
