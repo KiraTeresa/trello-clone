@@ -34,6 +34,7 @@ function CardContextProviderWrapper(props) {
     }
 
     const moveCard = (item, monitor, colId) => {
+        console.log("ITEM>> ", item)
         const getCards = getAllCards()
         const filteredList = getCards.filter((card) => card.id !== item.id)
         const foundCard = getCards.find((card) => card.id === item.id)

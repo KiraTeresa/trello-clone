@@ -41,7 +41,7 @@ export default function Column({ props }) {
             </div>
             <div className='col-body' ref={drop}>
                 {allCards.filter(card => card.currCol === id).map((card, index) => {
-                    return <Card key={index} props={{ card, index }} />
+                    return <Card key={card.id} props={{ card, index }} />
                 })}
                 {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}
 
