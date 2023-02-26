@@ -18,7 +18,6 @@ export default function Column({ props }) {
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         }),
-        // drop: (item, monitor) => moveCard(item, monitor, col.id)
         drop: (item, monitor) => {
             onDrop(item, monitor, col)
         }
@@ -36,8 +35,8 @@ export default function Column({ props }) {
                 <button onClick={() => deleteColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
-                {allCards.filter(card => card?.currCol === id).map((card, index) => {
-                    return <Card key={card.id} props={{ card, index }} />
+                {allCards.filter(card => card?.currCol === id).map((card) => {
+                    return <Card key={card.id} props={{ card }} />
                 })}
                 {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}
 
