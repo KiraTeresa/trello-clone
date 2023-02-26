@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 export default function ColumnForm({ props }) {
     const colId = uuidv4()
     const [data, setData] = useState({ id: colId, title: "" })
-    const { columns, setColumns, toggleColumnForm } = props
+    const { addNewColumn, toggleColumnForm } = props
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -14,7 +14,7 @@ export default function ColumnForm({ props }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setColumns([...columns, data])
+        addNewColumn(data)
         setData({ title: "" })
         toggleColumnForm()
     }

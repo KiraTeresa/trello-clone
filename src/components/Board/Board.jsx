@@ -1,29 +1,48 @@
 import Column from '../Column/Column';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import ColumnForm from '../Column/ColumnForm';
 import './board.scss'
-import colData from '../../data/columns.json'
-import { CardContext } from '../../context/card.context';
+import { useCardContext } from '../../context/card.context';
 
 export default function Board() {
-    const { allCards, onDrop } = useContext(CardContext)
-    const [columns, setColumns] = useState(colData)
+    const { allCards, onDrop } = useCardContext()
+    const [allColumns, setAllColumns] = useState([])
     const [columnForm, setColumnForm] = useState(false)
 
     useEffect(() => {
-        console.log(">>> useEffect fired <<<")
+        setColumns()
     }, [allCards])
 
     function toggleColumnForm() {
         setColumnForm(!columnForm)
     }
 
-    function removeColumn(colId) {
-        const updatedColumns = columns.filter((col) => col.id !== colId)
-        setColumns(updatedColumns)
+    function deleteColumn(colId) {
+        const storedColumns = getAllColumns()
+        const updatedList = storedColumns.filter((col) => col.id !== colId)
+        localStorage.setItem("columns", JSON.stringify(updatedList))
+        setColumns()
     }
 
+    const getAllColumns = () => {
+        const getCol = localStorage.getItem("columns")
+        if (getCol === "undefined") {
+            return []
+        }
+        return JSON.parse(getCol)
+    }
 
+    const setColumns = () => {
+        const getColumns = getAllColumns()
+        setAllColumns(getColumns)
+    }
+
+    const addNewColumn = (colInfo) => {
+        const storedColumns = getAllColumns()
+        const updatedList = [...storedColumns, colInfo]
+        localStorage.setItem("columns", JSON.stringify(updatedList))
+        setColumns()
+    }
 
     return (
         <div>
@@ -31,10 +50,10 @@ export default function Board() {
             <div className='col-wrap'>
 
                 {
-                    columns.map((col, index) => { return <Column key={index} onDrop={onDrop} props={{ col, removeColumn }} /> }
+                    allColumns.map((col) => { return <Column key={col.id} onDrop={onDrop} props={{ col, deleteColumn }} /> }
                     )
                 }
-                {columnForm ? <ColumnForm props={{ columns, setColumns, toggleColumnForm }} /> : ""}
+                {columnForm ? <ColumnForm props={{ addNewColumn, toggleColumnForm }} /> : ""}
             </div>
         </div>
     )
