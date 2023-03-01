@@ -7,6 +7,7 @@ function CardContextProviderWrapper(props) {
 
     useEffect(() => {
         setCards()
+        // localStorage.clear()
     }, [])
 
     const setCards = () => {
@@ -15,7 +16,11 @@ function CardContextProviderWrapper(props) {
     }
 
     const getAllCards = () => {
-        return JSON.parse(localStorage.getItem("cards"))
+        const getCards = localStorage.getItem("cards")
+        if (getCards === "undefined" || !getCards) {
+            return []
+        }
+        return JSON.parse(getCards)
     }
 
     const addNewCard = (cardInfo) => {
@@ -34,23 +39,26 @@ function CardContextProviderWrapper(props) {
 
     const moveCard = (item, monitor, colId) => {
         const getCards = getAllCards()
-        const filteredList = getCards.filter((card) => card.id !== item.id)
         const foundCard = getCards.find((card) => card.id === item.id)
+        const idx = getCards.indexOf(foundCard)
         const updatedCard = { ...foundCard, currCol: colId }
-        const updatedList = [...filteredList, updatedCard]
+        const arrStart = getCards.slice(0, idx)
+        const arrEnd = getCards.slice(idx + 1)
+        const updatedList = arrStart.concat(updatedCard, ...arrEnd)
         localStorage.setItem("cards", JSON.stringify(updatedList))
         setCards()
     }
 
-    const moveItem = (dragIndex, hoverIndex) => {
-        console.log("drag: ", dragIndex, " + hover: ", hoverIndex)
-        const item = allCards[dragIndex];
-        setAllCards(prevState => {
-            const newItems = prevState.filter((i, idx) => idx !== dragIndex);
-            newItems.splice(hoverIndex, 0, item);
-            return [...newItems];
-        });
+    const moveItem = (dragIndex, hoverIndex, item, card) => {
+        console.table({ dragIndex, item, hoverIndex, card })
+
+        const getCards = getAllCards()
+        const newItems = getCards.filter((i, idx) => idx !== dragIndex);
+        newItems.splice(hoverIndex, 0, item);
+        localStorage.setItem("cards", JSON.stringify(newItems))
+        setCards()
     };
+    // TODO: still duplicates cards when not supposed to
 
     const onDrop = (item, monitor, col) => {
         moveCard(item, monitor, col.id)
