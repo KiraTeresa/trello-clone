@@ -19,11 +19,6 @@ export default function Card({ props }) {
         })
     }))
 
-    // function displayItemInfo(item, card) {
-    //     console.log("ITEM>>> ", item)
-    //     console.log("card>>> ", card)
-    // }
-
     // visualize position of dragged card:
     const [, drop] = useDrop({
         accept: CardType.CARD,

@@ -7,7 +7,7 @@ import { CardType, ColumnType } from '../../constants/types'
 import { useCardContext } from '../../context/card.context';
 
 export default function Column({ props }) {
-    const { col, deleteColumn, moveColumn } = props
+    const { col, allColumns, deleteColumn, moveColItem } = props
     const { allCards, onDrop } = useCardContext()
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
@@ -22,38 +22,37 @@ export default function Column({ props }) {
         })
     }))
 
-    // visualize position of dragged card:
+    // visualize position of dragged column:
     const [, dropCol] = useDrop({
-        accept: CardType.CARD,
+        accept: ColumnType,
         hover(item, monitor) {
             if (!ref.current) {
                 return
             }
 
-            // const findItem = allColumns.find(c => c.id === item.id)
-            // // const dragIndex = allColumns.indexOf(findItem)
-            // const dragIndex = col
-            // const findCol = allColumns.find(c => c.id === col.id)
-            // const hoverIndex = allColumns.indexOf(findCol)
+            const findItem = allColumns.find(c => c.id === item.id)
+            const dragIndex = allColumns.indexOf(findItem)
+            const findCol = allColumns.find(c => c.id === col.id)
+            const hoverIndex = allColumns.indexOf(findCol)
 
-            // if (dragIndex === hoverIndex) {
-            //     return
-            // }
+            if (dragIndex === hoverIndex) {
+                return
+            }
 
-            // const hoveredRect = ref.current.getBoundingClientRect();
-            // const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
-            // const mousePosition = monitor.getClientOffset();
-            // const hoverClientY = mousePosition.y - hoveredRect.top;
+            const hoveredRect = ref.current.getBoundingClientRect();
+            const hoverMiddleX = (hoveredRect.right - hoveredRect.left) / 2;
+            const mousePosition = monitor.getClientOffset();
+            const hoverClientX = mousePosition.x - hoveredRect.left;
 
-            // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-            //     return;
-            // }
+            if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+                return;
+            }
 
-            // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-            //     return;
-            // }
+            if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+                return;
+            }
 
-            // moveColumn(dragIndex, hoverIndex, item, col);
+            moveColItem(dragIndex, hoverIndex, item, col);
         },
     });
 
@@ -70,8 +69,6 @@ export default function Column({ props }) {
         }
     }))
 
-    // TODO: implement dnd for columns
-
     function toggleCardForm() {
         setCardForm(!cardForm)
     }
@@ -86,7 +83,7 @@ export default function Column({ props }) {
                 <button onClick={() => deleteColumn(id)}>remove col</button>
             </div>
             <div className='col-body' ref={drop}>
-                {allCards.filter(card => card?.currCol === id).map((card) => {
+                {allCards.filter(card => card.currCol === id).map((card) => {
                     return <Card key={card.id} props={{ card }} />
                 })}
                 {cardForm ? <CardForm props={{ toggleCardForm, col }} /> : ""}

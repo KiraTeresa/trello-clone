@@ -58,7 +58,6 @@ function CardContextProviderWrapper(props) {
         localStorage.setItem("cards", JSON.stringify(newItems))
         setCards()
     };
-    // TODO: preview for dropping in other col
     // TODO: still duplicates cards when not supposed to
 
     const onDrop = (item, monitor, col) => {

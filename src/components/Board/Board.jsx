@@ -47,42 +47,43 @@ export default function Board() {
     }
 
     const moveColumn = (item) => {
-        // console.log("DROP IT >>> ", item)
-        // console.log("DragIndex: ", dragIndex)
-        // console.log("HoverIndex: ", hoverIndex)
-        // console.log("col: ", col)
-        // console.log("ALL ", allColumns)
-        // console.table(dragIndex, hoverIndex)
         const getColumns = getAllColumns()
-        const updatedColumns = getColumns.filter(col => col.id !== item.id)
-        updatedColumns.push(item)
-        // console.log(clearColumns)
-        // console.log(newColumnList)
+        const foundColumn = getColumns.find((col) => col.id === item.id)
+        const idx = getColumns.indexOf(foundColumn)
+        const arrStart = getColumns.slice(0, idx)
+        const arrEnd = getColumns.slice(idx + 1)
+        const updatedColumns = arrStart.concat(foundColumn, ...arrEnd)
         localStorage.setItem("columns", JSON.stringify(updatedColumns))
-        // const newItems = getColumns.filter((i, idx) => idx !== dragIndex);
-        // newItems.splice(hoverIndex, 0, item);
-        // localStorage.setItem("columns", JSON.stringify(newItems))
         setColumns()
     }
-    // TODO: logic puts moved col always at the end --> implement dragIndex and hoverIndex
+
+    const moveColItem = (dragIndex, hoverIndex, item, column) => {
+        console.table({ dragIndex, item, hoverIndex, column })
+
+        const getColumns = getAllColumns()
+        const newItems = getColumns.filter((i, idx) => idx !== dragIndex);
+        newItems.splice(hoverIndex, 0, item);
+        localStorage.setItem("columns", JSON.stringify(newItems))
+        setColumns()
+    }
 
     // make board become a drop target for columns:
-    const [{ isOver }, drop] = useDrop(() => ({
+    const [{ isOver }, dropCol] = useDrop(() => ({
         accept: ColumnType,
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         }),
-        drop: (item, monitor) => {
-            moveColumn(item)
+        dropCol: (item, monitor) => {
+            moveColumn(item, monitor)
         }
     }))
 
     return (
         <div>
             <button onClick={toggleColumnForm}>Add new column</button>
-            <div className='col-wrap' ref={drop}>
+            <div className='col-wrap' ref={dropCol}>
                 {
-                    allColumns.map((col) => { return <Column key={col?.id} onDrop={onDrop} props={{ col, deleteColumn, allColumns, moveColumn }} /> }
+                    allColumns.map((col) => { return <Column key={col.id} onDrop={onDrop} props={{ col, deleteColumn, allColumns, moveColItem }} /> }
                     )
                 }
                 {columnForm ? <ColumnForm props={{ addNewColumn, toggleColumnForm }} /> : ""}
