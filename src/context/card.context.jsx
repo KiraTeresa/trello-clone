@@ -79,7 +79,7 @@ function CardContextProviderWrapper(props) {
         setCards()
 
         // update local column cards arr:
-        // TODO: currently not updating localstorage with new colCardArrays
+        // TODO: currently not updating localstorage correctly with new colCardArrays
         // remove from current column:
         const foundCurrCol = allColumns.find(col => col.id === item.currCol)
         console.log("#### ", foundCurrCol)
