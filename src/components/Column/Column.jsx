@@ -4,11 +4,13 @@ import CardForm from '../Card/CardForm'
 import { useRef, useState } from 'react'
 import { useDrop, useDrag } from 'react-dnd'
 import { CardType, ColumnType } from '../../constants/types'
-import { useCardContext } from '../../context/card.context';
+import { useCardContext } from '../../context/card.context'
+import { useColumnContext } from '../../context/column.context'
 
 export default function Column({ props }) {
-    const { col, allColumns, deleteColumn, moveColItem } = props
+    const { col } = props
     const { allCards, dropCard } = useCardContext()
+    const { allColumns, deleteColumn, moveColItem } = useColumnContext()
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
     const ref = useRef()

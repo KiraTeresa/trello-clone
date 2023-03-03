@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CardContextProviderWrapper } from './context/card.context';
+import { ColumnContextProviderWrapper } from './context/column.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CardContextProviderWrapper>
-      <App />
-    </CardContextProviderWrapper>
+    <ColumnContextProviderWrapper>
+      <CardContextProviderWrapper>
+        <App />
+      </CardContextProviderWrapper>
+    </ColumnContextProviderWrapper>
   </React.StrictMode>
 );
 

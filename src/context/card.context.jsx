@@ -63,8 +63,8 @@ function CardContextProviderWrapper(props) {
 
     return (
         <CardContext.Provider value={{
-            getAllCards,
             allCards,
+            getAllCards,
             addNewCard,
             deleteCard,
             dropCard,
