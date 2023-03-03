@@ -63,7 +63,7 @@ export default function Card({ props }) {
                 <h3>{title}</h3>
                 <p>ID: {id}</p>
                 <p>{description}</p>
-                <button onClick={() => deleteCard(id)}>delete</button>
+                <button onClick={() => deleteCard(card)}>delete</button>
             </div>
         </>
     )

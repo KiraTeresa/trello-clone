@@ -17,6 +17,10 @@ export default function Board() {
     //     setColumns()
     // }, [allCards])
 
+    function clearLocalstorage() {
+        localStorage.clear()
+    }
+
     function toggleColumnForm() {
         setColumnForm(!columnForm)
     }
@@ -83,6 +87,7 @@ export default function Board() {
     return (
         <div>
             <button onClick={toggleColumnForm}>Add new column</button>
+            <button onClick={clearLocalstorage} style={{ backgroundColor: "red" }}>delete all</button>
             <div className='col-wrap' ref={drop}>
                 {
                     allColumns.map((col) => { return <Column key={col.id} onDrop={onDrop} props={{ col }} /> }

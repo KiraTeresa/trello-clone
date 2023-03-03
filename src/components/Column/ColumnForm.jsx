@@ -4,7 +4,7 @@ import { useColumnContext } from '../../context/column.context'
 
 export default function ColumnForm({ props }) {
     const colId = uuidv4()
-    const [data, setData] = useState({ id: colId, title: "" })
+    const [data, setData] = useState({ id: colId, title: "", cards: [] })
     const { addNewColumn } = useColumnContext()
     const { toggleColumnForm } = props
 

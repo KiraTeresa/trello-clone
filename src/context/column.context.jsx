@@ -23,16 +23,31 @@ function ColumnContextProviderWrapper(props) {
     }
 
     const addNewColumn = (colInfo) => {
-        const storedColumns = getAllColumns()
+        const getColumns = getAllColumns()
 
-        const updatedList = [...storedColumns, colInfo]
+        const updatedList = [...getColumns, colInfo]
         localStorage.setItem("columns", JSON.stringify(updatedList))
         setColumns()
     }
 
+    // add a card to the column
+    // const updateColumn = (newCard) => {
+    //     const getColumns = getAllColumns()
+
+    //     const foundColumn = getColumns.find(col => col.id === newCard.currCol)
+    //     const idx = getColumns.indexOf(foundColumn)
+    //     const colCardArr = [...foundColumn.cards, newCard]
+    //     const updatedColumn = { ...foundColumn, cards: colCardArr }
+    //     const arrStart = getColumns.slice(0, idx)
+    //     const arrEnd = getColumns.slice(idx + 1)
+    //     const updatedList = arrStart.concat(updatedColumn, ...arrEnd)
+    //     localStorage.setItem("columns", JSON.stringify(updatedList))
+    //     setColumns()
+    // }
+
     function deleteColumn(colId) {
-        const storedColumns = getAllColumns()
-        const updatedList = storedColumns.filter((col) => col.id !== colId)
+        const getColumns = getAllColumns()
+        const updatedList = getColumns.filter((col) => col.id !== colId)
         localStorage.setItem("columns", JSON.stringify(updatedList))
         setColumns()
     }
@@ -65,7 +80,8 @@ function ColumnContextProviderWrapper(props) {
             addNewColumn,
             deleteColumn,
             dropColumn,
-            moveColItem
+            moveColItem,
+            setColumns
         }}>
             {props.children}
         </ColumnContext.Provider>
