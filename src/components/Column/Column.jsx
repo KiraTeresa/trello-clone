@@ -8,7 +8,7 @@ import { useCardContext } from '../../context/card.context';
 
 export default function Column({ props }) {
     const { col, allColumns, deleteColumn, moveColItem } = props
-    const { allCards, onDrop } = useCardContext()
+    const { allCards, dropCard } = useCardContext()
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
     const ref = useRef()
@@ -65,7 +65,7 @@ export default function Column({ props }) {
             isOver: !!monitor.isOver()
         }),
         drop: (item, monitor) => {
-            onDrop(item, monitor, col)
+            dropCard(item, monitor, col)
         }
     }))
 

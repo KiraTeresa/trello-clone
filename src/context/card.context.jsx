@@ -37,11 +37,11 @@ function CardContextProviderWrapper(props) {
         setCards()
     }
 
-    const moveCard = (item, monitor, colId) => {
+    const dropCard = (item, monitor, col) => {
         const getCards = getAllCards()
         const foundCard = getCards.find((card) => card.id === item.id)
         const idx = getCards.indexOf(foundCard)
-        const updatedCard = { ...foundCard, currCol: colId }
+        const updatedCard = { ...foundCard, currCol: col.id }
         const arrStart = getCards.slice(0, idx)
         const arrEnd = getCards.slice(idx + 1)
         const updatedList = arrStart.concat(updatedCard, ...arrEnd)
@@ -60,19 +60,14 @@ function CardContextProviderWrapper(props) {
     };
     // TODO: still duplicates cards when not supposed to
 
-    const onDrop = (item, monitor, col) => {
-        moveCard(item, monitor, col.id)
-    }
-
     return (
         <CardContext.Provider value={{
             getAllCards,
             allCards,
             addNewCard,
             deleteCard,
-            moveCard,
-            moveItem,
-            onDrop
+            dropCard,
+            moveItem
         }}>
             {props.children}
         </CardContext.Provider>
