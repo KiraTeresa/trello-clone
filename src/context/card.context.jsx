@@ -25,6 +25,7 @@ function CardContextProviderWrapper(props) {
 
     const addNewCard = (cardInfo) => {
         const storedCards = getAllCards()
+
         const updatedList = [...storedCards, cardInfo]
         localStorage.setItem("cards", JSON.stringify(updatedList))
         setCards()

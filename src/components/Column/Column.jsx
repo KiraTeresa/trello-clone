@@ -12,6 +12,8 @@ export default function Column({ props }) {
     const [cardForm, setCardForm] = useState(false)
     const { id, title } = col
     const ref = useRef()
+    const [hoverIndex, setHoverIndex] = useState(undefined)
+    const [hoverCol, setHoverCol] = useState(undefined)
 
     // collecting function for dragging the column:
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -32,8 +34,8 @@ export default function Column({ props }) {
 
             const findItem = allColumns.find(c => c.id === item.id)
             const dragIndex = allColumns.indexOf(findItem)
-            const findCol = allColumns.find(c => c.id === col.id)
-            const hoverIndex = allColumns.indexOf(findCol)
+            // const findCol = allColumns.find(c => c.id === col.id)
+            // const hoverIndex = allColumns.indexOf(findCol)
 
             if (dragIndex === hoverIndex) {
                 return
@@ -52,7 +54,7 @@ export default function Column({ props }) {
                 return;
             }
 
-            moveColItem(dragIndex, hoverIndex, item, col);
+            moveColItem(dragIndex, hoverIndex, item, hoverCol);
         },
     });
 
@@ -73,10 +75,18 @@ export default function Column({ props }) {
         setCardForm(!cardForm)
     }
 
+    function printColInfo() {
+        // console.log("You are hovering col-", col.id, " >> ", col.title)
+        const findCol = allColumns.find(c => c.id === col.id)
+        setHoverCol(findCol)
+        const colIndex = allColumns.indexOf(findCol)
+        setHoverIndex(colIndex)
+    }
+
     const opacity = isDragging ? 0.5 : 1
 
     return (
-        <div className="collumn" style={{ backgroundColor: isOver && "purple", opacity }}>
+        <div className="collumn" onMouseEnter={() => printColInfo()} style={{ backgroundColor: isOver && "purple", opacity }}>
             <div className='col-head' ref={ref} style={{ cursor: 'move' }}>
                 <h2>{title}</h2>
                 <p>ID: {id}</p>
